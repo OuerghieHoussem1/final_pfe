@@ -1,9 +1,15 @@
 import { combineReducers } from "redux";
 import connectedUserReducer from "./connectedUserReducer";
 import workshopsReducer from "./workshopsReducer"
-const reducers = combineReducers({
+import oneCycleReducer from "./OneCycleReducer";
+import formationsReducer from "./formationsReducer";
+import oneFormationReducer from "./OneFormationReducer";
+const reducers = combineReducers({  
     connectedUserReducer,
-    workshopsReducer
+    workshopsReducer,
+    oneCycleReducer,
+    formationsReducer,
+    oneFormationReducer
 })
 
 

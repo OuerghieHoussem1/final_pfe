@@ -1,81 +1,58 @@
 const db = require("../models");
-const Workshop = db.Formations;
+const CycleWorkshop = db.Cycle_formations;
 const User = db.Users;
+const formation = db.formation
 const Attendance = db.Attendance;
-// Get all workshops
-exports.getAllWorkshops = async (req, res) => {
+
+
+
+
+exports.createFormation = async (req, res) => {
+    const { name, date, partOfId } = req.body;
     try {
-      const workshops = await Workshop.findAll({
-        include: [{ model: User, as: 'creator' }, { model: User, through: Attendance }],
-      });
-      res.status(200).json(workshops);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Internal server error' });
-    }
-};
-  
-// Get a single workshop by ID
-exports.getWorkshopById = async (req, res) => {
-    const { id } = req.params;
-    try {
-      const workshop = await Workshop.findByPk(id, {
-        include: [{ model: User, as: 'creator' }, { model: User, through: Attendance }],
-      });
-      if (!workshop) {
-        return res.status(404).json({ message: 'Workshop not found' });
-    }
-    res.status(200).json(workshop);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-};
-        
-// Create a new workshop
-exports.createWorkshop = async (req, res) => {
-    const { name, date, creatorId } = req.body;
-    try {
-        const workshop = await Workshop.create({ name, date, creatorId });
-        res.status(201).json(workshop);
+        const formationC = await formation.create({ name, date, partOfId });
+        res.status(201).json(formationC);
     } catch (err) {
         console.error(err);
         res.status(500).json({ message: 'Internal server error' });
     }
 };
 
-// Update an existing workshop by ID
-exports.updateWorkshopById = async (req, res) => {
-    const { id } = req.params;
-    const { name, date, creatorId } = req.body;
+
+// Get all workshops
+exports.getAllFormations = async (req, res) => {
     try {
-        const workshop = await Workshop.findByPk(id);
-        if (!workshop) {
-        return res.status(404).json({ message: 'Workshop not found' });
-    }
-        workshop.name = name;
-        workshop.date = date;
-        workshop.creatorId = creatorId;
-        await workshop.save();
-        res.status(200).json(workshop);
+      const formations = await formation.findAll({
+        include: [ { model: CycleWorkshop, as: "partOf" }],
+      });
+      res.status(200).json(formations);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal server error' });
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error' });
     }
 };
-        
-// Delete a workshop by ID
-exports.deleteWorkshopById = async (req, res) => {
-    const { id } = req.params;
+
+exports.getAllFormationsByCycle = async (req, res) => {
     try {
-        const workshop = await Workshop.findByPk(id);
-        if (!workshop) {
-        return res.status(404).json({ message: 'Workshop not found' });
-    }
-    await workshop.destroy();
-    res.status(204).json();
+        console.log(req.params.cycleId)
+      const formations = await formation.findAll({where:{partOfId:req.params.cycleId}},{
+        include: [ { model: CycleWorkshop, as: "partOf" }],
+      });
+      res.status(200).json(formations);
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ message: 'Internal server error' });
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+exports.getFormationById = async (req, res) => {
+  try {
+    const oneFormation = await formation.findByPk(req.params.id,{
+      include: [ { model: CycleWorkshop, as: "partOf" }],
+    });
+    res.status(200).json(oneFormation);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+}

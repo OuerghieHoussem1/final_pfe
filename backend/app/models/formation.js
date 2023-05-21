@@ -9,7 +9,7 @@ module.exports = (sequelize, Sequelize) => {
     date: {
       type: DataTypes.DATEONLY,
       allowNull: false,
-    },
+    }
   });
 
   return Formation;

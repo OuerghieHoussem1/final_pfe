@@ -27,5 +27,5 @@ module.exports = app => {
   //delete user
   router.delete("/:id",attendance.deleteAttendanceById)
 
-  app.use('/api/user', router);
+  app.use('/api/attendance', router);
 };

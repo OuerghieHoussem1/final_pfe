@@ -20,17 +20,31 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 const users = require("./user.model.js")(sequelize, Sequelize);
-const formations = require("./formation.model.js")(sequelize, Sequelize);
+const cycle_formations = require("./cycle_formation.model.js")(sequelize, Sequelize);
 const attendance = require("./attendance.model.js")(sequelize, Sequelize);
+const preInscription = require("./preInscription.model.js")(sequelize, Sequelize);
+const inscription = require("./inscription.model.js")(sequelize, Sequelize);
+const formation = require("./formation.js")(sequelize,Sequelize)
 
-users.belongsToMany(formations, { through: attendance });
-formations.belongsToMany(users, { through: attendance });
+users.belongsToMany(cycle_formations, { through: preInscription });
+cycle_formations.belongsToMany(users, { through: preInscription });
 
-formations.belongsTo(users, { as: 'creator' });
+users.belongsToMany(cycle_formations, { through: inscription });
+cycle_formations.belongsToMany(users, { through: inscription });
+
+users.belongsToMany(formation, { through: attendance });
+formation.belongsToMany(users, { through: attendance });
+
+
+cycle_formations.belongsTo(users, { as: 'creator' });
+formation.belongsTo(cycle_formations, { as: 'partOf' });
 
 
 db.Users = users
-db.Formations = formations
+db.Cycle_formations = cycle_formations
+db.formation = formation
 db.Attendance = attendance
+db.PreInscription = preInscription
+db.Inscription = inscription
 
 module.exports = db;

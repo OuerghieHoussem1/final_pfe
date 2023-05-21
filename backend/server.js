@@ -36,8 +36,9 @@ app.get("/", (req, res) => {
 
 
 require("./app/routes/user.routes")(app);
-require("./app/routes/formation.routes")(app);
+require("./app/routes/cycle_formation.routes")(app);
 require("./app/routes/attendance.routes")(app);
+require("./app/routes/formation.routes")(app);
 
 
 

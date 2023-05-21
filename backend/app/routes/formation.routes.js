@@ -1,23 +1,33 @@
 module.exports = app => {
-  const formation = require("../controllers/formation.controller.js");
-
-  var router = require("express").Router();
-
-  // Create a new Tutorial
-  router.post("/", formation.createWorkshop);
-
-  // Retrieve all formation
-  router.get("/", formation.getAllWorkshops);
-
-  // Get one user
-  router.get("/:id", formation.getWorkshopById);
-
-  //update user
-  router.put("/:id",formation.updateWorkshopById)
+    const formation = require("../controllers/formation.controller.js");
   
-  //delete user
-  router.delete("/:id",formation.deleteWorkshopById)
-  
+    var router = require("express").Router();
 
-  app.use('/api/formation', router);
-};
+    // Retrieve all cycle
+    router.get("/", formation.getAllFormations);
+
+    router.post("/", formation.createFormation);
+
+    /* // Create a new Tutorial
+    router.post("/", cycle.createCycle);
+  
+    // Retrieve all cycle
+    router.get("/", cycle.getAllCycles);
+  
+    // Get one user
+    router.get("/:id", cycle.getCycleById);
+ */
+    // Get one user
+    router.get("/cycle/:cycleId", formation.getAllFormationsByCycle);
+    router.get("/:id", formation.getFormationById);
+  
+    //update user
+    /* router.put("/:id",cycle.updateCycleById)
+    
+    //delete user
+    router.delete("/:id",cycle.deleteCycleById) */
+    
+  
+    app.use('/api/formations', router);
+  };
+  

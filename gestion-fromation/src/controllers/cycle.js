@@ -22,6 +22,7 @@ export const createInscriptionController = (newInscription) => async (dispatch) 
     try {
         const {data} = await createInscription(newInscription)
         console.log(data)
+        dispatch({type:"CREATE_WOKSHOP", payload:data})
     } catch (error) {
         console.log(error)
     }
@@ -38,6 +39,7 @@ export const getCyclesController = (body) => async (dispatch) => {
 
 export const getCyclesByIdController = (cyclesId,body) => async (dispatch) => {
     try {
+        console.log("aa")
         const {data} = await getCyclesById(cyclesId,body)
         console.log(data)
         dispatch({type:"LOAD_ONE_CYCLE",payload:data})

@@ -5,6 +5,7 @@ import Main from "./Pages/Main";
 import Cycle from "./Pages/Cycle";
 import OneCycle from "./Pages/OneCycle";
 import OneFormation from "./Pages/OneFormation";
+import Users from "./Pages/Users";
 function App() {
   return (
     <div className="App">
@@ -14,6 +15,7 @@ function App() {
             <Route path='/dashboard' element={<Dashboard/>} >
               <Route index element={<Main/>}/>
               <Route path='Cycles' element={<Cycle/>}/>
+              <Route path='Users' element={<Users/>}/>
               <Route exact path='oneCycle/:cycleId' element={<OneCycle/>}/>
               <Route exact path='oneFormation/:formationId' element={<OneFormation/>}/>
             </Route>

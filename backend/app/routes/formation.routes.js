@@ -18,6 +18,7 @@ module.exports = app => {
     router.get("/:id", cycle.getCycleById);
  */
     // Get one user
+    router.get("/notPresent/:cycleId/:formationId",formation.getNonPresentList)
     router.get("/cycle/:cycleId", formation.getAllFormationsByCycle);
     router.get("/:id", formation.getFormationById);
   

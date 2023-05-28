@@ -52,9 +52,8 @@ exports.getCycleById = async (req, res) => {
         
 // Create a new workshop
 exports.createCycle = async (req, res) => {
-    const { name, date, creatorId } = req.body;
     try {
-        const cycle = await CycleWorkshop.create({ name, date, creatorId });
+        const cycle = await CycleWorkshop.create(req.body);
         res.status(201).json(cycle);
     } catch (err) {
         console.error(err);

@@ -22,12 +22,12 @@ const Login = () => {
     <div className="min-h-screen bg-gray-200 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="text-center text-3xl font-extrabold text-gray-900">{isLogin ? 'Log in to your account' : 'Create a new account'}</h2>
-        <p className="mt-2 text-center text-sm text-gray-600">
+        {/* <p className="mt-2 text-center text-sm text-gray-600">
           Or{' '}
           <button onClick={() => setIsLogin(!isLogin)} className="font-medium text-indigo-600 hover:text-indigo-500">
             {isLogin ? 'create a new account' : 'log in to your account'}
           </button>
-        </p>
+        </p> */}
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

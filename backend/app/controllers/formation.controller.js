@@ -3,6 +3,7 @@ const CycleWorkshop = db.Cycle_formations;
 const User = db.Users;
 const formation = db.formation
 const Attendance = db.Attendance;
+const Inscription = db.Inscription
 
 
 
@@ -55,4 +56,27 @@ exports.getFormationById = async (req, res) => {
       console.error(err);
       res.status(500).json({ message: 'Internal server error' });
     }
+}
+
+exports.getNonPresentList = async (req, res) => {
+  try {
+    console.log(req.params)
+    const oneCycle = await CycleWorkshop.findByPk(req.params.cycleId,{include: [{ model: User, as: 'creator' }, { model: User, through: { model: Inscription, as: 'inscriptions' }}]})
+    const attendance = await Attendance.findAll({where:{formationId:req.params.formationId}})
+
+
+    const newUsers =  oneCycle.Users.filter(user => {
+      console.log(user)
+      const isUserInAttendance = attendance.some(item => item.UserId === user.id);
+      console.log(isUserInAttendance)
+      return isUserInAttendance;
+    });
+    
+    console.log("aaaaa")
+
+    res.status(200).json({newUsers,attendance});
+  } catch (error) {
+    console.error('Error loading users:', error);
+    throw error;
+  }
 }

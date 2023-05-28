@@ -1,9 +1,18 @@
-import { login, signup } from "../api"
+import { login, signup, getAllUsers } from "../api"
+
+export const loadUsers = () => async (dispatch) => {
+    try {
+        const {data} = await getAllUsers()
+        dispatch({type:"LOAD_USERS",payload:data})
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export const signupController = (newUser) => async (dispatch) => {
     try {
         const {data} = await signup(newUser)
-        console.log(data)
+        dispatch({type:"CREATE_USER",payload:data})
     } catch (error) {
         console.log(error)
     }

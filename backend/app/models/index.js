@@ -25,6 +25,7 @@ const attendance = require("./attendance.model.js")(sequelize, Sequelize);
 const preInscription = require("./preInscription.model.js")(sequelize, Sequelize);
 const inscription = require("./inscription.model.js")(sequelize, Sequelize);
 const formation = require("./formation.js")(sequelize,Sequelize)
+const evaluation = require("./Evaluation.js")(sequelize,Sequelize)
 
 users.belongsToMany(cycle_formations, { through: preInscription });
 cycle_formations.belongsToMany(users, { through: preInscription });
@@ -39,6 +40,8 @@ formation.belongsToMany(users, { through: attendance });
 cycle_formations.belongsTo(users, { as: 'creator' });
 formation.belongsTo(cycle_formations, { as: 'partOf' });
 
+evaluation.belongsTo(users, {as:"evaluator"})
+evaluation.belongsTo(formation, {as:"evaluated"})
 
 db.Users = users
 db.Cycle_formations = cycle_formations
@@ -46,5 +49,6 @@ db.formation = formation
 db.Attendance = attendance
 db.PreInscription = preInscription
 db.Inscription = inscription
+db.evaluation = evaluation
 
 module.exports = db;

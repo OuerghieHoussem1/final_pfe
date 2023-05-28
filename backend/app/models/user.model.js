@@ -16,9 +16,21 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
     },
     role: {
-      type: DataTypes.ENUM('user', 'admin'),
+      type: DataTypes.ENUM('user', 'admin', 'formateur'),
       allowNull: false,
       defaultValue: 'admin',
+    },
+    cin: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    directionEtService: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    entreprise: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   });
 

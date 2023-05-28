@@ -5,6 +5,7 @@ const BASE_URL = "http://localhost:5000/api"
 //AUTH
 export const signup = (newUser) => axios.post(`${BASE_URL}/auth/signup`,newUser)
 export const login = (userData) => axios.post(`${BASE_URL}/auth/login`,userData)
+export const getAllUsers = () => axios.get(`${BASE_URL}/auth`)
 
 
 //cycles

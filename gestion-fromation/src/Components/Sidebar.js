@@ -14,7 +14,7 @@ export default function Sidebar() {
         dispatch(logout(navigate))
     }
 
-    const user = JSON.parse(localStorage.getItem("PROFILE"))
+    const user = JSON.parse(localStorage.getItem("profile"))
   return (
     <div className='h-screen '>
         <aside className="w-64 h-full" aria-label="Sidebar">
@@ -36,6 +36,12 @@ export default function Sidebar() {
                         <span className="flex-1 ml-3 whitespace-nowrap">cycles</span>
                         </NavLink>
                     </li>
+                    {user?.role==="admin"&&<li>
+                        <NavLink to="/Dashboard/Users" className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <AiOutlineCreditCard size={30} color="gray" />
+                        <span className="flex-1 ml-3 whitespace-nowrap">users</span>
+                        </NavLink>
+                    </li>}
                 </ul>
                 <ul className="pt-4 mt-4 space-y-2 border-t border-gray-200 dark:border-gray-700 flex-grow items-end flex w-full">
                     <li className='w-full'>

@@ -33,7 +33,7 @@ exports.getUserById = async (req, res) => {
 exports.createUser = async (req, res) => {
     const { name, email, password, role } = req.body;
     try {
-        const user = await User.create({ name, email, password, role });
+        const user = await User.create(req.body);
         res.status(201).json(user);
     } catch (err) {
         console.error(err);
